@@ -1,14 +1,10 @@
 package com.example.ProjectsShowcase.models;
 
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,11 +29,4 @@ public class MyUser {
     private String mail; // username
     private String password;
     private String roles;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<ProjectFullInfo> projects;
-
-    public void addProject(ProjectFullInfo project) {
-        projects.add(project);
-    }
 }

@@ -34,5 +34,6 @@ public class ProjectFullInfo {
 
     public enum Status { 
         FREE, ON_WORK, COMPLETED, ON_VERIFICATION, CANCELED
+        // свободен, в работе, завершён, на верификации, отказано в верификации
     }
 }
