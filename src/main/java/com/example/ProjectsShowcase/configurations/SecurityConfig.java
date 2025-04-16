@@ -27,11 +27,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    @SuppressWarnings({ "deprecation", "removal" })
+    @SuppressWarnings({ "deprecation" })
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable).authorizeRequests(auth -> auth
-            .requestMatchers("/projects/**").permitAll()
-            .requestMatchers("/project/**").authenticated())
+            .requestMatchers("/").permitAll()
+            .requestMatchers("/auth", "/profile").authenticated()
+            .requestMatchers("/project/request").hasRole("CUSTOMER"))
             .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
             .build();
     }

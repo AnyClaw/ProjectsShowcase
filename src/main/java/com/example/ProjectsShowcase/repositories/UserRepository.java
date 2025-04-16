@@ -8,4 +8,5 @@ import com.example.ProjectsShowcase.models.MyUser;
 
 public interface UserRepository extends CrudRepository<MyUser, Long> {
     Optional<MyUser> findByName(String username);
+    boolean existsByName(String name);
 }

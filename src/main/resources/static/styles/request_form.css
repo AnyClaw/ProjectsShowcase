@@ -1,0 +1,39 @@
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    margin: 0 auto;
+    padding: 0;
+    width: 50%;
+}
+
+.field {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.input {
+    width: 100%;
+    border: 1px solid rgb(156, 156, 156);
+    border-radius: 3px;
+    resize: none;
+    font-family: Arial, sans-serif;
+    padding: 5px
+}
+
+.medium {
+    height: 35px;
+}
+
+.large {
+    height: 70px;
+}
+
+.submit {
+    padding: 10px;
+    border: none;
+    margin: 0 auto;
+    display: block;
+    background-color: rgb(255, 238, 0);
+    border-radius: 5px;
+}

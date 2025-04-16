@@ -29,4 +29,5 @@ public class MyUser {
     private String mail; // username
     private String password;
     private String roles;
+    private String post;
 }

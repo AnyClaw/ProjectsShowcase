@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Заявка</title>
+
+    <link rel="stylesheet" href="..\styles\basic.css">
+    <link rel="stylesheet" href="..\styles\profile_popup.css">
+    <link rel="stylesheet" href="..\styles\request_form.css">
+</head>
+<body>
+    <header class="center-y">
+        <img src="..\images\Miit_Icons.png" style="margin: 5px 0 5px 10px;">
+        <img id="profile-button" src="..\images\Profile_Icon.png">
+    </header>
+
+    <div class="center-x">
+        <h1>Информация о заявке</h1>
+    </div>
+
+    <form class="form" id="project-form">
+        <div class="field">
+            Название проекта<br>
+            <textarea id="name" type="text" placeholder="Название проекта" class="input medium"></textarea>
+        </div>
+
+        <div style="width: 55%; margin-right: 5%; margin-bottom: 15px;">
+            Тип проекта<br>
+            <textarea id="type" type="text" placeholder="Тип проекта" class="input medium"></textarea>
+        </div>
+
+        <div style="width: 40%; margin-bottom: 10px;">
+            Кафедра<br>
+            <textarea id="department" type="text" placeholder="Кафедра"class="input medium"></textarea>
+        </div>
+
+        <div class="field">
+            Цель проекта<br>
+            <textarea id="goal" placeholder="Цель проекта" class="input large"></textarea>
+        </div>
+
+        <div class="field">
+            Барьер проекта<br>
+            <textarea id="barrier" placeholder="Барьер проекта" class="input large"></textarea>
+        </div>
+
+        <div class="field">
+            Существующие решения<br>
+            <textarea id="decisions" placeholder="Существующие решения" class="input large"></textarea>
+        </div>
+
+        <div class="field">
+            Ключевые слова<br>
+            <textarea id="keywords" type="text" placeholder="Ключевые слова" class="input medium"></textarea>
+        </div>
+    </form>
+
+    <div class="center-x" style="margin-top: 10px;">
+        <button type="button" onclick="submitRequest()" class="yellow-button"><h1>Отправить заявку</h1></button>
+    </div>
+
+    <div id="profilePopup" class="popup">
+        <div id="profilePopupButtons"></div>
+    </div>
+
+    <script src="..\scripts\DisplayProfileSection.js"></script>
+    <script src="..\scripts\SendProjectRequest.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Projects Showcase</title>
+
+    <link rel="stylesheet" href="styles\basic.css">
+    <link rel="stylesheet" href="styles\profile_popup.css">
+    <link rel="stylesheet" href="styles\project_card.css">
+    <link rel="stylesheet" href="styles\projects_search.css">
+</head>
+<body>
+
+    <header class="center-y">
+        <img src="images\Miit_Icons.png" style="margin: 5px 0 5px 10px;">
+        <img id="profile-button" src="images\Profile_Icon.png">
+    </header>
+
+    <div class="search-section">
+        <div></div>
+
+        <div class="center-y">
+            <input type="text" id="searchInput" placeholder="Поиск по названию">
+        </div>
+
+        <div class="center-y parent_filter">
+            <img src="images\Filter_Icon.png" alt="Фильтр" id="toggleCheckboxes">
+
+            <div class="checkbox-container" id="checkboxContainer">
+                <div>
+                    <input type="checkbox" name="status" value="FREE" checked> Свободно
+                </div>
+                <div>
+                    <input type="checkbox" name="status" value="ON_WORK"> В работе
+                </div>
+                <div>
+                    <input type="checkbox" name="status" value="COMPLETED"> Готово
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="parent_projects" id="projects"></div>
+
+    <div id="profilePopup" class="popup">
+        <div style="display: flex; justify-content: center;">
+            <div id="profilePopupButtons"></div>
+        </div>  
+    </div>
+
+    <script src="scripts\DisplayShowcaseProjects.js"></script>
+    <script src="scripts\DisplayProfileSection.js"></script>
+</body>
+</html>

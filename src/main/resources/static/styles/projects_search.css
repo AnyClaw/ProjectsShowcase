@@ -1,0 +1,32 @@
+.search-section {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 30% auto 30%;
+    margin: 0;
+    height: 70px;
+}
+
+.parent_filter {
+    flex-wrap: wrap;
+    justify-content: left;
+}
+
+#toggleCheckboxes {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.checkbox-container {
+    display: none;
+    margin-right: 10px;
+}
+
+#searchInput {
+    margin: 0 auto;
+    flex-grow: 1;
+    max-width: 60%;
+    padding: 10px;
+    height: 20px;
+}

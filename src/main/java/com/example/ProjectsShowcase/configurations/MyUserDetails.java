@@ -28,7 +28,11 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getMail();
+        return user.getName() + " " + user.getSurname() + " " + user.getPatronymic();
+    }
+
+    public MyUser getUser() {
+        return user;
     }
     
 }
