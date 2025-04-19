@@ -1,5 +1,8 @@
 package com.example.ProjectsShowcase.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -7,11 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProjectsShowcase.configurations.MyUserDetails;
 import com.example.ProjectsShowcase.models.MyUser;
 import com.example.ProjectsShowcase.models.ProjectFullInfo;
+import com.example.ProjectsShowcase.models.Team;
 import com.example.ProjectsShowcase.repositories.UserRepository;
 import com.example.ProjectsShowcase.services.Parser;
 import com.example.ProjectsShowcase.repositories.ProjectRepository;
@@ -43,6 +48,13 @@ public class MainController {
         return projectRepository.findActiveProjects();
     }
 
+    @GetMapping("/api/projects/user")
+    public Iterable<ProjectFullInfo> userProjects() {
+        Team team = teamRepository.findByTeammates_Id(getUserInfo().getId()).get();
+
+        return team.getCompletedProjects();
+    }
+
     @GetMapping("/api/user/info")
     public MyUser getUserInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -60,6 +72,16 @@ public class MainController {
     }
 
     //
+
+    @PostMapping("/add/team")
+    public String addTeam(@RequestParam Long teamlidId) {
+        Team team = new Team(teamlidId, "Чебуречища", userRepository.findById(teamlidId).get(), 
+            new ArrayList<MyUser>(),  null, new ArrayList<ProjectFullInfo>(), new ArrayList<ProjectFullInfo>());
+
+        teamRepository.save(team);
+        
+        return "saved";
+    }
 
     @PostMapping("/add/user")
     public String addUser(@RequestBody MyUser user) {

@@ -30,3 +30,24 @@
     padding: 10px;
     height: 20px;
 }
+
+.projects-header {
+    display: flex;
+    width: 60%;
+    margin: 0 auto;  
+    height: 70px;
+}
+
+.header-grid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 50% 50%;
+    align-items: center;
+}
+
+.header-name {
+    font-size: 25px;
+}
+.header-filter {
+    justify-self: right;
+}

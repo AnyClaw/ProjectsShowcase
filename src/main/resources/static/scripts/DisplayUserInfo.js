@@ -49,11 +49,16 @@ async function fetchUser () {
 }
 
 const profileButton = document.getElementById("profile-button");
+const showcaseButton = document.getElementById("showcase-button");
 const profilePopup = document.getElementById("profilePopup");
 
 profileButton.onclick = function(event) {
     profilePopup.style.display = profilePopup.style.display === "block" ? "none" : "block";
     event.stopPropagation(); 
+}
+
+showcaseButton.onclick = function() {
+    window.location.href = '/';
 }
 
 window.onclick = function(event) {

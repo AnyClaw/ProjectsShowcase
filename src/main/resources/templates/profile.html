@@ -8,11 +8,13 @@
     <link rel="stylesheet" href="styles\basic.css">
     <link rel="stylesheet" href="styles\profile_popup.css">
     <link rel="stylesheet" href="styles\profile_info.css">
+    <link rel="stylesheet" href="styles\projects_search.css">
+    <link rel="stylesheet" href="styles\project_card.css">
 </head>
 
 <body>
     <header class="center-y" style="margin-bottom: 0;">
-        <img src="images\Miit_Icons.png" style="margin: 5px 0 5px 10px;">
+        <img id="showcase-button" src="images\Miit_Icons.png" style="margin: 5px 0 5px 10px; cursor: pointer;">
         <img id="profile-button" src="images\Profile_Icon.png">
     </header>
 
@@ -31,11 +33,35 @@
         </div>
     </div>
 
+    <div class="projects-header">
+        <div class="header-grid">
+            <div class="header-name">Мои проекты:</div>
+            <div class="header-filter">
+                <div class="center-y parent_filter">
+                    <img src="images\Filter_Icon.png" alt="Фильтр" id="toggleCheckboxes">
+
+                    <div class="checkbox-container" id="checkboxContainer">
+                        <div>
+                            <input type="checkbox" name="status" value="FREE" checked> Свободно
+                        </div>
+                        <div>
+                            <input type="checkbox" name="status" value="ON_WORK"> В работе
+                        </div>
+                        <div>
+                            <input type="checkbox" name="status" value="COMPLETED"> Готово
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="profilePopup" class="popup">
         <div id="profilePopupButtons"></div>
     </div>
 
     <script src="scripts\DisplayUserInfo.js"></script>
+    <script src="scripts\DisplayUserProjects.js"></script>
 </body>
 
 </html>
