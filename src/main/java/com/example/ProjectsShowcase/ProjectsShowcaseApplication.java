@@ -17,5 +17,6 @@ public class ProjectsShowcaseApplication implements WebMvcConfigurer {
 		viewControllerRegistry.addViewController("/").setViewName("showcase.html");
 		viewControllerRegistry.addViewController("/project/request").setViewName("project_request.html");
 		viewControllerRegistry.addViewController("/profile").setViewName("profile.html");
+		viewControllerRegistry.addViewController("/team").setViewName("team.html");
 	}
 }

@@ -36,3 +36,11 @@ header {
     cursor: pointer;
     box-shadow: 0 0 5px inset rgb(146, 136, 0);
 }
+
+.title-page-header {
+    background-color: white;
+    border-bottom: 3px solid #1b365d;
+    font-size: 25px;
+    margin-bottom: 20px;
+    padding-bottom: 40px;
+}

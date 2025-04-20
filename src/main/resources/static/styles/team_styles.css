@@ -1,0 +1,39 @@
+.team-title-section {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.team-title-name {
+    font-size: 50px;
+}
+
+.team-title-addition {
+    font-size: 20px;
+    color: rgb(129, 129, 129)
+}
+
+.team-info-parent {
+    display: grid;
+    grid-template-columns: 30% 50% 20%;
+}
+
+.teammates-section {
+    display: flex;
+    width: 60%;
+    justify-content: right;
+    justify-self: right;
+}
+
+.teammates-label {
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    background-color: rgb(255, 238, 0);
+    padding: 5px 0;
+}
+
+.teammates-list {
+    background-color: white;
+    width: 100%;
+    margin-top: 10px;
+}

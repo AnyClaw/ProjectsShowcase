@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title id="team_title"></title>
+
+    <link rel="stylesheet" href="styles\basic.css">
+    <link rel="stylesheet" href="styles\profile_popup.css">
+    <link rel="stylesheet" href="styles\projects_search.css">
+    <link rel="stylesheet" href="styles\team_styles.css">
+    <link rel="stylesheet" href="styles\project_card.css">
+</head>
+<body>
+    <header class="center-y" style="margin-bottom: 0;">
+        <img id="showcase-button" src="images\Miit_Icons.png" style="margin: 5px 0 5px 10px; cursor: pointer;">
+        <img id="profile-button" src="images\Profile_Icon.png">
+    </header>
+
+    <div class="title-page-header">
+        <div class="team-title-section">
+            <div id="team" class="team-title-name"></div>
+            <div class="team-title-addition">Название команды</div>
+        </div>
+    </div>
+
+    <div class="team-info-parent">
+        <div class="teammates-section">
+            <div style="width: 100%;">
+                <div class="teammates-label">Участники:</div>
+                <div class="teammates-list">
+                    <div style="padding: 20px; cursor: pointer;">Егор</div>
+                    <div style="padding: 20px; cursor: pointer;">Егор</div>
+                    <div style="padding: 20px; cursor: pointer;">Егор</div>
+                    <div style="padding: 20px; cursor: pointer;">Егор</div>
+                    <div style="padding: 20px; cursor: pointer;">Егор</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-left: 20px;">
+            <div class="header-grid">
+                <div class="header-name">Мои проекты:</div>
+    
+                <div class="center-y">
+                    <input type="text" id="searchInput" placeholder="Поиск по названию">
+                </div>
+    
+                <div class="header-filter">
+                    <div class="center-y parent_filter">
+                        <div class="checkbox-container" id="checkboxContainer">
+                            <div>
+                                <input type="checkbox" name="status" value="COMPLETED" checked> Сдано
+                            </div>
+                            <div>
+                                <input type="checkbox" name="status" value="ON_WORK" checked> В работе
+                            </div>
+                            <div>
+                                <input type="checkbox" name="status" value="CANCELED" checked> Отказ
+                            </div>
+                        </div>
+    
+                        <img src="images\Filter_Icon.png" alt="Фильтр" id="toggleCheckboxes">
+                    </div>
+                </div>
+            </div>
+
+            <div class="parent_projects" style="width: 100%;" id="projects"></div>
+        </div>
+    </div>
+
+    <div id="profilePopup" class="popup">
+        <div id="profilePopupButtons"></div>
+    </div>
+
+    <script src="scripts\DisplayProfileSection.js"></script>
+    <script src="scripts\DisplayTeamName.js"></script>
+    <script src="scripts\DisplayTeamProjectsList.js"></script>
+</body>
+</html>

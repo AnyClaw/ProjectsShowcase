@@ -19,7 +19,7 @@ async function fetchUser () {
             const profileButton = document.createElement('button');
             profileButton.textContent = 'Профиль';
             profileButton.onclick = () => {
-                alert('Открыть профиль пользователя: ' + user.username);
+                window.location.href = '/profile';
             };
 
             const logoutButton = document.createElement('button');

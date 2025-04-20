@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title>Профиль</title>
@@ -18,17 +17,28 @@
         <img id="profile-button" src="images\Profile_Icon.png">
     </header>
 
-    <div id="profile" class="profile-info-parent">
-        <div class="profile-info-content">
+    <div id="profile" class="title-page-header">
+        <div class="profile-info-content" style="margin-bottom: 40px;">
             <div id="name" class="profile-info-section"></div>
+
             <div id="phone-section" class="profile-info-additional-text-section">
                 <div class="section-text">Номер телефона</div>
                 <div id="phone"></div>
             </div>
+
             <div id="role" class="profile-info-section"></div>
+
             <div id="mail-section" class="profile-info-additional-text-section">
                 <div class="section-text">Рабочая почта</div>
                 <div id="mail"></div>
+            </div>
+            
+        </div>
+
+        <div class="team-section">
+            <div class="team-info-additional-text-section">
+                <div class="section-text">Команда</div>
+                <div id="team"></div>
             </div>
         </div>
     </div>
@@ -36,32 +46,40 @@
     <div class="projects-header">
         <div class="header-grid">
             <div class="header-name">Мои проекты:</div>
+
+            <div class="center-y">
+                <input type="text" id="searchInput" placeholder="Поиск по названию">
+            </div>
+
             <div class="header-filter">
                 <div class="center-y parent_filter">
-                    <img src="images\Filter_Icon.png" alt="Фильтр" id="toggleCheckboxes">
-
                     <div class="checkbox-container" id="checkboxContainer">
                         <div>
-                            <input type="checkbox" name="status" value="FREE" checked> Свободно
+                            <input type="checkbox" name="status" value="COMPLETED" checked> Сдано
                         </div>
                         <div>
-                            <input type="checkbox" name="status" value="ON_WORK"> В работе
+                            <input type="checkbox" name="status" value="ON_WORK" checked> В работе
                         </div>
                         <div>
-                            <input type="checkbox" name="status" value="COMPLETED"> Готово
+                            <input type="checkbox" name="status" value="CANCELED" checked> Отказ
                         </div>
                     </div>
+
+                    <img src="images\Filter_Icon.png" alt="Фильтр" id="toggleCheckboxes">
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="parent_projects" id="projects"></div>
 
     <div id="profilePopup" class="popup">
         <div id="profilePopupButtons"></div>
     </div>
 
     <script src="scripts\DisplayUserInfo.js"></script>
-    <script src="scripts\DisplayUserProjects.js"></script>
+    <script src="scripts\DisplayTeamName.js"></script>
+    <script src="scripts\DisplayTeamProjectsList.js"></script>
 </body>
 
 </html>
