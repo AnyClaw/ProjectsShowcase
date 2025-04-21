@@ -56,8 +56,9 @@ public class MainController {
     }
 
     @PostMapping("/api/project/request")
-    public void createProjectRequest(@RequestBody ProjectFullInfo project) {
+    public String createProjectRequest(@RequestBody ProjectFullInfo project) {
         projectRepository.save(project);
+        return "saved";
     }
 
     @GetMapping("/api/team/getName")
@@ -72,6 +73,11 @@ public class MainController {
         }
         
         return response;
+    }
+
+    @GetMapping("/api/team/info")
+    public Team getTeamInfo() {
+        return teamRepository.findByTeammates_id(MyUserDetailsService.getCurrentUserInfo().getId());
     }
 
     @GetMapping("/api/team/projects")

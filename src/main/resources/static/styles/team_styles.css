@@ -37,3 +37,8 @@
     width: 100%;
     margin-top: 10px;
 }
+
+#team {
+    cursor: pointer;
+    display: inline-block;
+}

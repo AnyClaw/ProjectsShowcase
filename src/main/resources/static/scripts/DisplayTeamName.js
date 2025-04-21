@@ -13,14 +13,11 @@ async function fetchTeamName() {
 
 function displayTeamName(teamName) {
     document.getElementById('team').innerHTML = teamName.name;
-    const teamTitle = document.getElementById('team_title');
-    if (teamTitle)
-        teamTitle.innerHTML = teamName.name; 
 }
 
 document.getElementById('team').onclick = function() {
     if (document.getElementById('team').textContent != 'Вы пока не состоите в команде') {
-        alert('Команда');
+        window.location.href = '/team';
     }
 }
 

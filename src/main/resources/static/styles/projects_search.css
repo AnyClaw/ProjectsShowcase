@@ -41,7 +41,7 @@
 .header-grid {
     display: grid;
     width: 100%;
-    grid-template-columns: 0.5fr 1.5fr 0.5fr;
+    grid-template-columns: 0.5fr 1.35fr 0.65fr;
     align-items: center;
 }
 
