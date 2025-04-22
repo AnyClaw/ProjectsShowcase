@@ -38,29 +38,35 @@ function displayProjects(projects) {
         };
         const status = statusMap[filteredProjects[i].status];
 
-        page.innerHTML += `
-            <div class="content">
-                <ul class="card-info">
-                    <li class="card-section header_text">
-                        ${filteredProjects[i].name}
-                    </li>
-                    <li class="card-section center-y">
-                        ${filteredProjects[i].type}
-                    </li>
-                    <li class="card-section center-y">
-                        Статус:&nbsp;<span style="color: ${color};">${status}</span>
-                    </li>
-                    <li class="card-section center-y">
-                        <span class="description_text">
-                            Цель: ${filteredProjects[i].goal}
-                        </span>
-                    </li>
-                    <li class="card-section center-y">
-                        <button class="yellow-button">Подробнее</button>
-                    </li>
-                </ul>
-            </div>
+        const card = document.createElement('div');
+        card.className = 'content';
+        card.innerHTML += `
+            <ul class="card-info">
+                <li class="card-section header_text">
+                    ${filteredProjects[i].name}
+                </li>
+                <li class="card-section center-y">
+                    ${filteredProjects[i].type}
+                </li>
+                <li class="card-section center-y">
+                    Статус:&nbsp;<span style="color: ${color};">${status}</span>
+                </li>
+                <li class="card-section center-y">
+                    <span class="description_text">
+                        Цель: ${filteredProjects[i].goal}
+                    </span>
+                </li>
+                <li class="card-section center-y">
+                    <button class="yellow-button">Подробнее</button>
+                </li>
+            </ul>
         `;
+
+        card.addEventListener('click', () => {
+            window.location.href = `/project/info/${filteredProjects[i].id}`;
+        });
+
+        page.appendChild(card);
     }
 }
 

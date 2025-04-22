@@ -34,10 +34,14 @@ public class MainController {
     private final PasswordEncoder encoder;
     private final Parser parser;
 
-    // Полная информация о всех активных проектах
     @GetMapping("/api/projects/active")
     public Iterable<ProjectFullInfo> allActiveProjects() {
         return projectRepository.findActiveProjects();
+    }
+
+    @GetMapping("/api/project/info/{id}")
+    public ProjectFullInfo getProjectInfo(@PathVariable Long id) {
+        return projectRepository.findById(id).get();
     }
 
     @GetMapping("/api/user/info")
@@ -48,11 +52,6 @@ public class MainController {
         catch (Exception e) {
             return null;
         }
-    }
-
-    @GetMapping("/api/user/info/{id}")
-    public MyUser getUserInfo(@PathVariable Long id) {
-        return userRepository.findById(id).get();
     }
 
     @PostMapping("/api/project/request")
@@ -98,6 +97,11 @@ public class MainController {
     }
 
     //
+
+    @GetMapping("/user/info/{id}")
+    public MyUser getUserInfo(@PathVariable Long id) {
+        return userRepository.findById(id).get();
+    }
 
     @GetMapping("/get/team/{userId}")
     public Team getTeam(@PathVariable Long userId) {

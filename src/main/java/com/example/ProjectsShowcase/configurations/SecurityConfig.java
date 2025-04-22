@@ -31,7 +31,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable).authorizeRequests(auth -> auth
             .requestMatchers("/").permitAll()
-            .requestMatchers("/auth", "/profile").authenticated()
+            .requestMatchers("/profile", "/team").authenticated()
             .requestMatchers("/project/request").hasRole("CUSTOMER"))
             .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
             .build();
