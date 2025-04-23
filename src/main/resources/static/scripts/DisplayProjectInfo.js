@@ -17,7 +17,14 @@ async function fetchProjectInfo() {
 }
 
 function displayProjectInfo(projectInfo) {
-    console.log(projectInfo);
+    document.getElementById('name').textContent = projectInfo.name;
+    document.getElementById('status').textContent = projectInfo.status;
+    document.getElementById('type').textContent = projectInfo.type;
+    document.getElementById('department').textContent = projectInfo.department;
+    document.getElementById('goal').textContent = projectInfo.goal;
+    document.getElementById('barrier').textContent = projectInfo.barrier;
+    document.getElementById('decisions').textContent = projectInfo.decisions;
+    document.getElementById('customer').textContent = projectInfo.customer.name;
 }
 
 document.addEventListener('DOMContentLoaded', fetchProjectInfo);

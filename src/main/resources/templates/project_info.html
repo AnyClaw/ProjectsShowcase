@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title id="title">Проект</title>
 
     <link rel="stylesheet" href="..\..\styles\basic.css">
     <link rel="stylesheet" href="..\..\styles\profile_popup.css">
+    <link rel="stylesheet" href="..\..\styles\project_info.css">
 </head>
 <body>
     <header class="center-y">
@@ -13,35 +14,35 @@
         <img id="profile-button" src="..\..\images\Profile_Icon.png">
     </header>
 
-    <div style="margin: 10px 5% 10px 10%; border-bottom: 2px solid rgb(161, 161, 161);">
-        <div style="font-size: 50px;">Витрина проектной деятельности</div>
+    <div class="project-info-parent">
+        <div id="name" style="font-size: 50px;"></div>
 
-        <div style="display: grid; grid-template-columns: 20% 80%; margin-top: 30px; font-size: 1vw; word-wrap: break-word;">
-            <div style="color: rgb(129, 129, 129); margin-bottom: 15px;">Статус</div>
-            <div style="margin-bottom: 15px;">Свободно</div>
+        <div class="project-info-content">
+            <div class="project-info-addition info-block">Статус</div>
+            <div id="status" class="info-block"></div>
 
-            <div style="color: rgb(129, 129, 129); margin-bottom: 15px;">Тип проекта</div>
-            <div style="margin-bottom: 15px;">Учебно-прикладной проект</div>
+            <div class="project-info-addition info-block">Тип проекта</div>
+            <div id="type" class="info-block"></div>
 
-            <div style="color: rgb(129, 129, 129); margin-bottom: 15px;">Кафедра</div>
-            <div style="margin-bottom: 15px;">Свободно</div>
+            <div class="project-info-addition info-block">Кафедра</div>
+            <div id="department" class="info-block"></div>
 
-            <div style="color: rgb(129, 129, 129); margin-bottom: 15px;">Цель проекта</div>
-            <div style="margin-bottom: 15px;">хочет создать безбарьерную транспортную среду "Один проездной на весь транспорт"</div>
+            <div class="project-info-addition info-block">Цель проекта</div>
+            <div id="goal" class="info-block"></div>
 
-            <div style="color: rgb(129, 129, 129); margin-bottom: 15px;">Барьер проекта</div>
-            <div style="margin-bottom: 15px;">но не может из-за недостаточного опыта в планировании эксплуатационной работы в условиях критического дефицита тяговых средств (без возможности их закупки)Учебно-прикладной проектУчебно-прикладной проектУчебно-прикладной проектУчебно-прикладной проектУчебно-прикладной проектУчебно-прикладной проектУчебно-прикладной проектУчебно-прикладной проектУчебно-прикладной проектУчебно-прикладной проектУчебно-прикладной проектУчебно-прикладной проект</div>
+            <div class="project-info-addition info-block">Барьер проекта</div>
+            <div id="barrier" class="info-block"></div>
 
-            <div style="color: rgb(129, 129, 129); margin-bottom: 15px;">Существующие решения</div>
-            <div style="margin-bottom: 15px;">а существующие решения по переутверждению НГДП не подходят по причине нарушения выполнения социальной функции железнодорожным транспортом на уровне государства.</div>
+            <div class="project-info-addition info-block">Существующие решения</div>
+            <div id="decisions" class="info-block"></div>
 
-            <div style="color: rgb(129, 129, 129); margin-bottom: 15px;">Носитель проекта</div>
-            <div style="margin-bottom: 15px;">Свободно</div>
+            <div class="project-info-addition info-block">Носитель проекта</div>
+            <div id="customer" class="info-block"></div>
         </div>
     </div>
 
-    <div style="display: flex; width: 100%; justify-content: right;">
-        <button class="yellow-button" style=" margin: 0; margin-right: 5%; font-size: larger; padding: 20px;">Забронировать</button>
+    <div class="buttons-section">
+        <button class="yellow-button button-right">Забронировать</button>
     </div>
 
     <div id="profilePopup" class="popup">

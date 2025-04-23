@@ -1,0 +1,33 @@
+.project-info-parent {
+    margin: 10px 5% 10px 10%;
+    border-bottom: 2px solid rgb(161, 161, 161);
+}
+
+.project-info-content {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    margin-top: 30px;
+    font-size: 1vw;
+    word-wrap: break-word;
+}
+
+.info-block {
+    margin-bottom: 15px;
+}
+
+.project-info-addition {
+    color: rgb(129, 129, 129);
+}
+
+.buttons-section {
+    display: flex;
+    width: 100%;
+    justify-content: right;
+}
+
+.button-right {
+    margin: 0;
+    margin-right: 5%;
+    font-size: larger;
+    padding: 20px;
+}
