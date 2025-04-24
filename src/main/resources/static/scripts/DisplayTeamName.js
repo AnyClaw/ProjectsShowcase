@@ -1,18 +1,25 @@
-async function fetchTeamName() {
+async function fetchRoleInfo() {
     try {
-        const response = await fetch('/api/team/getName');
+        const response = await fetch('/api/role/info');
         if (!response.ok) {
             throw new Error('Сетевая ошибка');
         }
-        const teamName = await response.json();
-        displayTeamName(teamName);
+        const roleInfo = await response.json();
+        if (roleInfo.role == 'Студент') {
+            displayTeamName(roleInfo);
+        }
+
+        document.getElementById('role').textContent = roleInfo.role;
+        console.log(roleInfo);
+
     } catch (error) {
         console.error('Ошибка при получении данных:', error);
     }
 }
 
-function displayTeamName(teamName) {
-    document.getElementById('team').innerHTML = teamName.name;
+function displayTeamName(roleInfo) {
+    document.getElementById('team_section').style = 'display: grid';
+    document.getElementById('team').textContent = roleInfo.teamName;
 }
 
 document.getElementById('team').onclick = function() {
@@ -21,4 +28,4 @@ document.getElementById('team').onclick = function() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', fetchTeamName);
+document.addEventListener('DOMContentLoaded', fetchRoleInfo);

@@ -7,14 +7,6 @@
     grid-template-rows: 50% 50%;
 }
 
-.profile-info-section {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: center;
-    margin-top: 40px;
-}
-
 .profile-info-additional-text-section {
     display: grid;
     grid-template-rows: 50% 50%;

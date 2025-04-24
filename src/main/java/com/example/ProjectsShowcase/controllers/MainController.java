@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProjectsShowcase.models.MyUser;
@@ -60,15 +61,25 @@ public class MainController {
         return "saved";
     }
 
-    @GetMapping("/api/team/getName")
-    public Map<String, String> getTeamName() {
+    @GetMapping("/api/role/info")
+    public Map<String, String> getRoleInfo() {
         Map<String, String> response = new HashMap<>();
-        try {
-            Team team = teamRepository.findByTeammates_id(MyUserDetailsService.getCurrentUserInfo().getId());
-            response.put("name", team.getName());
-        }
-        catch (Exception e) {
-            response.put("name", "Вы пока не состоите в команде");
+        MyUser user = MyUserDetailsService.getCurrentUserInfo();
+
+        switch (user.getRole()) {
+            case "ROLE_STUDENT" -> {
+                Team team = teamRepository.findByTeammates_id(user.getId());
+                response.put("role", "Студент");
+
+                if (team != null)
+                    response.put("teamName", team.getName());
+                else
+                    response.put("teamName", "Вы пока не состоите в команде");
+            }
+
+            case "ROLE_CUSTOMER" -> {
+                response.put("role", "Заказчик");
+            }
         }
         
         return response;
@@ -108,12 +119,22 @@ public class MainController {
         return teamRepository.findByTeammates_id(userId);
     }
 
-    @PostMapping("/add/team")
-    public String createTeam() {
-        MyUser teamlid = userRepository.findById(MyUserDetailsService.getCurrentUserInfo().getId()).get();
-        Team team = new Team(null, "Чебуречища", teamlid, new ArrayList<>(), null, new ArrayList<>(), new ArrayList<>());
-        team.addTeammate(teamlid);
+    @PostMapping("/add/team/{id}/{name}")
+    public String createTeam(@PathVariable Long id, @PathVariable String name, 
+        @RequestParam(required = false) List<Long> teammatesId) {
+
+        MyUser teamlid = userRepository.findById(id).get();
+        Team team = new Team(null, name, teamlid, List.of(teamlid), null, 
+            new ArrayList<>(), new ArrayList<>());
+
+        if (teammatesId != null && !teammatesId.isEmpty()) {
+            for (Long teammateId : teammatesId) {
+                team.addTeammate(userRepository.findById(teammateId).get());
+            }
+        }
+
         teamRepository.save(team);
+
         return "saved";
     }
 
@@ -164,6 +185,12 @@ public class MainController {
     @PostMapping("/delete/project/{id}")
     public String deleteProject(@PathVariable Long id) {
         projectRepository.delete(projectRepository.findById(id).get());
+        return "deleted";
+    }
+
+    @PostMapping("/delete/team/{id}")
+    public String deleteTeam(@PathVariable Long id) {
+        teamRepository.delete(teamRepository.findById(id).get());
         return "deleted";
     }
 

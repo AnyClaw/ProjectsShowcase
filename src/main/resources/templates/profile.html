@@ -19,23 +19,29 @@
 
     <div id="profile" class="title-page-header">
         <div class="profile-info-content" style="margin-bottom: 40px;">
-            <div id="name" class="profile-info-section"></div>
+            <div class="profile-info-additional-text-section">
+                <div class="section-text">ФИО</div>
+                <div id="name"></div>
+            </div>
 
-            <div id="phone-section" class="profile-info-additional-text-section">
+            <div class="profile-info-additional-text-section">
                 <div class="section-text">Номер телефона</div>
                 <div id="phone"></div>
             </div>
 
-            <div id="role" class="profile-info-section"></div>
+            <div class="profile-info-additional-text-section">
+                <div class="section-text">Должность</div>
+                <div id="role"></div>
+            </div>
 
-            <div id="mail-section" class="profile-info-additional-text-section">
+            <div class="profile-info-additional-text-section">
                 <div class="section-text">Рабочая почта</div>
                 <div id="mail"></div>
             </div>
             
         </div>
 
-        <div class="team-section">
+        <div id="team_section" class="team-section" style="display: none;">
             <div class="team-info-additional-text-section">
                 <div class="section-text">Команда</div>
                 <div id="team"></div>
@@ -71,7 +77,7 @@
         </div>
     </div>
 
-    <div class="parent_projects" id="projects"></div>
+    <div class="parent_projects" id="projects" style="display: none;"></div>
 
     <div id="profilePopup" class="popup">
         <div id="profilePopupButtons"></div>

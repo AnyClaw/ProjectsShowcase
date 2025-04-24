@@ -30,4 +30,9 @@ public class MyUser {
     private String password;
     private String roles;
     private String post;
+
+    public String getRole() {
+        String[] rolesArray = roles.split(", ");
+        return rolesArray.length == 2 ? rolesArray[1] : roles;
+    }
 }

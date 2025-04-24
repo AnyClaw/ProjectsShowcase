@@ -12,6 +12,7 @@ public class ProjectsShowcaseApplication implements WebMvcConfigurer {
 		SpringApplication.run(ProjectsShowcaseApplication.class, args);
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	public void addViewControllers(ViewControllerRegistry viewControllerRegistry) {
 		viewControllerRegistry.addViewController("/").setViewName("showcase.html");

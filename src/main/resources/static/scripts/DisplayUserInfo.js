@@ -31,16 +31,14 @@ async function fetchUser () {
             profileButtonsContainer.appendChild(username);
             profileButtonsContainer.appendChild(profileButton);
             profileButtonsContainer.appendChild(logoutButton);
-            console.log('dscxdsfer')
 
             displayUserInfo(user);
-        } catch {
+        } catch (error) {
             const loginButton = document.createElement('button');
             loginButton.textContent = 'Войти';
             loginButton.onclick = () => {
                 window.location.href = '/login';
             };
-
             profileButtonsContainer.appendChild(loginButton);
         }
     } catch (error) {
@@ -68,11 +66,14 @@ window.onclick = function(event) {
 }
 
 function displayUserInfo(user) {
-    // Заполняем элементы профиля
-    document.getElementById('name').textContent = user.name + " " + user.surname + " " + user.patronymic; // Имя
-    document.getElementById('phone').textContent = user.phone == null ? 'не представлен' : user.phone;
-    document.getElementById('role').textContent = user.roles; // Роль
-    document.getElementById('mail').textContent = user.mail; // Email
+    const name = (user.surname == 'null' ? '' : user.surname) + ' ' + (user.name == 'null' ? '' : user.name) + 
+        ' ' + (user.patronymic == 'null' ? '' : user.patronymic);
+
+    document.getElementById('name').textContent = name;
+    document.getElementById('phone').textContent = 
+        user.phoneNumber == 'null' ? 'не представлен' : user.phoneNumber;
+    document.getElementById('mail').textContent = user.mail.includes('null') 
+        ? 'не представлен' : user.mail;
 }
 
 document.addEventListener('DOMContentLoaded', fetchUser );
