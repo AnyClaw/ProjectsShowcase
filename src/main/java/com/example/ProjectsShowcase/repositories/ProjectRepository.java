@@ -14,4 +14,6 @@ public interface ProjectRepository extends CrudRepository<ProjectFullInfo, Long>
 
     @Query("SELECT p FROM ProjectFullInfo p WHERE status IN (:statuses)")
     Iterable<ProjectFullInfo> findByStatuses(List<Status> statuses);
+
+    List<ProjectFullInfo> findByCustomerId(Long customerId);
 }

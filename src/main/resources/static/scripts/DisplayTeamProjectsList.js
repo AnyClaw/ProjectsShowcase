@@ -1,89 +1,136 @@
 async function fetchTeamProject() {
     try {
-        const response = await fetch('/api/team/projects');
+        const response1 = await fetch('/api/role/info');
+        if (!response1.ok) {
+            throw new Error('Сетевая ошибка');
+        }
+        const roleInfo = await response1.json();
+
+        var response;
+
+        if (roleInfo.role == 'Заказчик')
+            response = await fetch('/api/customer/projects');
+        else 
+            response = await fetch('/api/team/projects');
+
         if (!response.ok) {
             throw new Error('Сетевая ошибка');
         }
         try {
             const teamProjects = await response.json();
-            displayTeamProjects(teamProjects);
-        } catch {
-            console.log('a');
+            console.log(teamProjects);
+            displayTeamProjects(teamProjects, roleInfo);
+        } catch (error) {
+            console.log(error);
+            if (document.getElementById('role') != null) {
+                if (document.getElementById("projects") != null) 
+                    document.getElementById("projects").style = 'display: none;';
+                if (document.getElementById('projects-list') != null) 
+                    document.getElementById('projects-list').style = 'display: none;';
+            }
         }
     } catch (error) {
         console.error('Ошибка при получении данных:', error);
     }
 }
 
-function displayTeamProjects(teamProjects) {
-    if ((document.getElementById('role') != null && document.getElementById('role').textContent == 'Студент')
-        || (document.getElementById('role') == null)) {
-        
-        if (document.getElementById('role') != null) {
-            if (document.getElementById("projects") != null) 
-                document.getElementById("projects").style = 'display: flex;';
-            if (document.getElementById('projects-list') != null) 
-                document.getElementById('projects-list').style = 'display: flex;';
-        }
+function displayTeamProjects(teamProjects, roleInfo) {
+    if (roleInfo.role == 'Студент'){
+        document.getElementById('checkboxContainer').innerHTML = `
+            <div>
+                <input type="checkbox" name="status" value="COMPLETED" checked> Сдано
+            </div>
+            <div>
+                <input type="checkbox" name="status" value="ON_WORK" checked> В работе
+            </div>
+            <div>
+                <input type="checkbox" name="status" value="CANCELED" checked> Отказ
+            </div>
+        `
+    }
+    else {
+        document.getElementById('checkboxContainer').innerHTML = `
+            <div>
+                <input type="checkbox" name="status" value="COMPLETED" checked> Сдано
+            </div>
+            <div>
+                <input type="checkbox" name="status" value="ON_WORK" checked> В работе
+            </div>
+            <div>
+                <input type="checkbox" name="status" value="FREE" checked> Свободно
+            </div>
+            <div>
+                <input type="checkbox" name="status" value="ON_VERIFICATION" checked> На верификации
+            </div>
+        `
+    }
 
-        const page = document.getElementById("projects");
-        page.innerHTML = '';
+    const page = document.getElementById("projects");
+    page.innerHTML = '';
 
-        const allProjects = [].concat(teamProjects.current, teamProjects.refused, teamProjects.completed);
+    var allProjects;
 
-        const selectedStatuses = Array.from(document.querySelectorAll('input[name="status"]:checked')).map(el => el.value);
-        const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+    if (roleInfo.role == 'Студент') 
+        allProjects = [].concat(teamProjects.current, teamProjects.refused, teamProjects.completed);
+    else
+        allProjects = teamProjects;
 
-        const filteredProjects = allProjects.filter(project => 
-            selectedStatuses.includes(project.status) &&
-            project.name.toLowerCase().includes(searchQuery)
-        );
+    const selectedStatuses = Array.from(document.querySelectorAll('input[name="status"]:checked')).map(el => el.value);
+    const searchQuery = document.getElementById('searchInput').value.toLowerCase();
 
-        for (let i = 0; i < filteredProjects.length; i++) {
-            const colorMap = {
-                'COMPLETED': 'green',
-                'ON_WORK': 'blue',
-                'CANCELED': 'red'
-            };
-            const color = colorMap[filteredProjects[i].status];
+    const filteredProjects = allProjects.filter(project => 
+        selectedStatuses.includes(project.status) &&
+        project.name.toLowerCase().includes(searchQuery)
+    );
 
-            const statusMap = {
-                'COMPLETED': 'сдано',
-                'ON_WORK': 'в работе',
-                'CANCELED': 'отказ'
-            };
-            const status = statusMap[filteredProjects[i].status];
+    for (let i = 0; i < filteredProjects.length; i++) {
+        const colorMap = {
+            'COMPLETED': 'green',
+            'ON_WORK': 'blue',
+            'CANCELED': 'red',
+            'ON_VERIFICATION': 'blue',
+            'FREE': 'green'
+        };
+        const color = colorMap[filteredProjects[i].status];
 
-            const card = document.createElement('div');
-            card.className = 'content';
-            card.innerHTML += `
-                <ul class="card-info">
-                    <li class="card-section header_text">
-                        ${filteredProjects[i].name}
-                    </li>
-                    <li class="card-section center-y">
-                        ${filteredProjects[i].type}
-                    </li>
-                    <li class="card-section center-y">
-                        Статус:&nbsp;<span style="color: ${color};">${status}</span>
-                    </li>
-                    <li class="card-section center-y">
-                        <span class="description_text">
-                            Цель: ${filteredProjects[i].goal}
-                        </span>
-                    </li>
-                    <li class="card-section center-y">
-                        <button class="yellow-button">Подробнее</button>
-                    </li>
-                </ul>
-            `;
+        const statusMap = {
+            'COMPLETED': 'сдано',
+            'ON_WORK': 'в работе',
+            'CANCELED': 'отказ',
+            'ON_VERIFICATION': 'на верификации',
+            'FREE': 'свободно'
+        };
+        const status = statusMap[filteredProjects[i].status];
 
-            card.addEventListener('click', () => {
-                window.location.href = `/project/info/${filteredProjects[i].id}`;
-            });
+        const card = document.createElement('div');
+        card.className = 'content';
+        card.innerHTML += `
+            <ul class="card-info">
+                <li class="card-section header_text">
+                    ${filteredProjects[i].name}
+                </li>
+                <li class="card-section center-y">
+                    ${filteredProjects[i].type}
+                </li>
+                <li class="card-section center-y">
+                    Статус:&nbsp;<span style="color: ${color};">${status}</span>
+                </li>
+                <li class="card-section center-y">
+                    <span class="description_text">
+                        Цель: ${filteredProjects[i].goal}
+                    </span>
+                </li>
+                <li class="card-section center-y">
+                    <button class="yellow-button">Подробнее</button>
+                </li>
+            </ul>
+        `;
 
-            page.appendChild(card);
-        }
+        card.addEventListener('click', () => {
+            window.location.href = `/project/info/${filteredProjects[i].id}`;
+        });
+
+        page.appendChild(card);
     }
 }
 

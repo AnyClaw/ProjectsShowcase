@@ -10,7 +10,6 @@ async function fetchRoleInfo() {
         }
 
         document.getElementById('role').textContent = roleInfo.role;
-        console.log(roleInfo);
 
     } catch (error) {
         console.error('Ошибка при получении данных:', error);

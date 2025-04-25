@@ -81,6 +81,8 @@ public class MainController {
                 response.put("role", "Заказчик");
             }
         }
+
+        response.put("id", String.valueOf(user.getId()));
         
         return response;
     }
@@ -107,7 +109,20 @@ public class MainController {
         }
     }
 
+    @GetMapping("/api/affiliation/{userId}/{projectId}")
+    public boolean projectAffiliation(@PathVariable Long userId, @PathVariable Long projectId) {
+        MyUser user = userRepository.findById(userId).get();
+        ProjectFullInfo project = projectRepository.findById(projectId).get();
+
+        return user.getId() == project.getCustomer().getId();
+    }
+
     //
+
+    @GetMapping("/api/customer/projects")
+    public List<ProjectFullInfo> getProjects() {
+        return projectRepository.findByCustomerId(MyUserDetailsService.getCurrentUserInfo().getId());
+    }
 
     @GetMapping("/user/info/{id}")
     public MyUser getUserInfo(@PathVariable Long id) {

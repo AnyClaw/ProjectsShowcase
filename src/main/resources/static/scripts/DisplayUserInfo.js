@@ -14,7 +14,8 @@ async function fetchUser () {
             user = await response.json();
 
             const username = document.createElement('label');
-            username.textContent = user.name + " " + user.surname + " " + user.patronymic;
+            username.textContent = (user.surname == 'null' ? '' : user.surname) + ' ' + (user.name == 'null' ? '' : user.name) + 
+                ' ' + (user.patronymic == 'null' ? '' : user.patronymic);
         
             const profileButton = document.createElement('button');
             profileButton.textContent = 'Профиль';

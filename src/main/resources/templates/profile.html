@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <div id="projects-list" class="projects-header" style="display: none;">
+    <div id="projects-list" class="projects-header">
         <div class="header-grid">
             <div class="header-name">Мои проекты:</div>
 
@@ -59,17 +59,7 @@
 
             <div class="header-filter">
                 <div class="center-y parent_filter">
-                    <div class="checkbox-container" id="checkboxContainer">
-                        <div>
-                            <input type="checkbox" name="status" value="COMPLETED" checked> Сдано
-                        </div>
-                        <div>
-                            <input type="checkbox" name="status" value="ON_WORK" checked> В работе
-                        </div>
-                        <div>
-                            <input type="checkbox" name="status" value="CANCELED" checked> Отказ
-                        </div>
-                    </div>
+                    <div class="checkbox-container" id="checkboxContainer"></div>
 
                     <img src="images\Filter_Icon.png" alt="Фильтр" id="toggleCheckboxes">
                 </div>
@@ -77,14 +67,14 @@
         </div>
     </div>
 
-    <div class="parent_projects" id="projects" style="display: none;"></div>
+    <div class="parent_projects" id="projects"></div>
 
     <div id="profilePopup" class="popup">
         <div id="profilePopupButtons"></div>
     </div>
 
     <script src="scripts\DisplayUserInfo.js"></script>
-    <script src="scripts\DisplayTeamName.js"></script>
+    <script src="scripts\DisplayRoleInfo.js"></script>
     <script src="scripts\DisplayTeamProjectsList.js"></script>
 </body>
 
