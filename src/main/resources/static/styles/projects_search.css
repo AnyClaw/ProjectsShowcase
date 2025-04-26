@@ -35,7 +35,7 @@
     display: flex;
     width: 60%;
     margin: 0 auto;  
-    height: 70px;
+    height: 100px;
 }
 
 .header-grid {
@@ -49,5 +49,5 @@
     font-size: 25px;
 }
 .header-filter {
-    justify-self: right;
+    justify-self: left;
 }

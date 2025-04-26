@@ -13,8 +13,8 @@
 
 #profilePopupButtons {
     display: flex;
-    flex-direction: column; /* Устанавливаем вертикальную ориентацию */
-    width: 100%; /* Занимаем всю ширину родительского контейнера */
+    flex-direction: column; 
+    width: 100%;
 
     label {
         font-size: larger;

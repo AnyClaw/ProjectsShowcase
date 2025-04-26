@@ -117,12 +117,12 @@ public class MainController {
         return user.getId() == project.getCustomer().getId();
     }
 
-    //
-
     @GetMapping("/api/customer/projects")
     public List<ProjectFullInfo> getProjects() {
         return projectRepository.findByCustomerId(MyUserDetailsService.getCurrentUserInfo().getId());
     }
+
+    //
 
     @GetMapping("/user/info/{id}")
     public MyUser getUserInfo(@PathVariable Long id) {

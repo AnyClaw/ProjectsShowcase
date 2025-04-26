@@ -41,8 +41,27 @@ async function fetchProjectInfo() {
 }
 
 function displayProjectInfo(projectInfo, userInfo, affiliation) {
+    const colorMap = {
+        'COMPLETED': 'gray',
+        'ON_WORK': 'red',
+        'ON_VERIFICATION': 'blue',
+        'FREE': 'green'
+    };
+    const color = colorMap[projectInfo.status];
+
+    const statusMap = {
+        'COMPLETED': 'сдано',
+        'ON_WORK': 'в работе',
+        'ON_VERIFICATION': 'на верификации',
+        'FREE': 'свободно'
+    };
+    const status = statusMap[projectInfo.status];
+
     document.getElementById('name').textContent = projectInfo.name;
-    document.getElementById('status').textContent = projectInfo.status;
+
+    document.getElementById('status').textContent = status;
+    document.getElementById('status').style = `color: ${color}`;
+
     document.getElementById('type').textContent = projectInfo.type;
     document.getElementById('department').textContent = projectInfo.department;
     document.getElementById('goal').textContent = projectInfo.goal;
@@ -51,8 +70,11 @@ function displayProjectInfo(projectInfo, userInfo, affiliation) {
     document.getElementById('customer').textContent = projectInfo.customer.name;
 
     const buttonsSection = document.getElementById('buttons_section');
+    console.log(status)
     if (userInfo != null) {
-        if (userInfo.role == 'ROLE_STUDENT') {
+        if (userInfo.role == 'ROLE_STUDENT' && 
+            (status != 'в работе' && status != 'сдано' && status != 'на верификации')) {
+
             buttonsSection.innerHTML = `<button class="yellow-button button-right">Забронировать</button>`;
         }
         else {

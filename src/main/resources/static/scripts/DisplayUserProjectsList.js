@@ -1,25 +1,13 @@
 async function fetchTeamProject() {
     try {
-        const response1 = await fetch('/api/role/info');
-        if (!response1.ok) {
-            throw new Error('Сетевая ошибка');
-        }
-        const roleInfo = await response1.json();
-
-        var response;
-
-        if (roleInfo.role == 'Заказчик')
-            response = await fetch('/api/customer/projects');
-        else 
-            response = await fetch('/api/team/projects');
-
+        const response = await fetch('/api/customer/projects');
         if (!response.ok) {
             throw new Error('Сетевая ошибка');
         }
         try {
             const teamProjects = await response.json();
-            console.log(teamProjects);
-            displayTeamProjects(teamProjects, roleInfo);
+            if (teamProjects.length == 0) throw new Error('Проектов нет');
+            displayTeamProjects(teamProjects);
         } catch (error) {
             console.log(error);
             if (document.getElementById('role') != null) {
@@ -34,21 +22,8 @@ async function fetchTeamProject() {
     }
 }
 
-function displayTeamProjects(teamProjects, roleInfo) {
-    if (roleInfo.role == 'Студент'){
-        document.getElementById('checkboxContainer').innerHTML = `
-            <div>
-                <input type="checkbox" name="status" value="COMPLETED" checked> Сдано
-            </div>
-            <div>
-                <input type="checkbox" name="status" value="ON_WORK" checked> В работе
-            </div>
-            <div>
-                <input type="checkbox" name="status" value="CANCELED" checked> Отказ
-            </div>
-        `
-    }
-    else {
+function displayTeamProjects(teamProjects) {
+    if (document.getElementById('checkboxContainer').textContent == '') {
         document.getElementById('checkboxContainer').innerHTML = `
             <div>
                 <input type="checkbox" name="status" value="COMPLETED" checked> Сдано
@@ -65,15 +40,16 @@ function displayTeamProjects(teamProjects, roleInfo) {
         `
     }
 
+    const checkboxes = document.querySelectorAll('input[name="status"]');
+    console.log(checkboxes);
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', fetchTeamProject);
+    });
+
     const page = document.getElementById("projects");
     page.innerHTML = '';
 
-    var allProjects;
-
-    if (roleInfo.role == 'Студент') 
-        allProjects = [].concat(teamProjects.current, teamProjects.refused, teamProjects.completed);
-    else
-        allProjects = teamProjects;
+    var allProjects = teamProjects;
 
     const selectedStatuses = Array.from(document.querySelectorAll('input[name="status"]:checked')).map(el => el.value);
     const searchQuery = document.getElementById('searchInput').value.toLowerCase();
@@ -136,11 +112,6 @@ function displayTeamProjects(teamProjects, roleInfo) {
 
 document.getElementById('searchInput').addEventListener('input', () => {
     fetchTeamProject();
-});
-
-const checkboxes = document.querySelectorAll('input[name="status"]');
-checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', fetchTeamProject);
 });
 
 document.getElementById('toggleCheckboxes').addEventListener('click', (event) => {
