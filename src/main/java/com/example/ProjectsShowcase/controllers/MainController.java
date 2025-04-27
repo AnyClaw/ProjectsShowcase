@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ProjectsShowcase.models.MyUser;
 import com.example.ProjectsShowcase.models.ProjectFullInfo;
 import com.example.ProjectsShowcase.models.Team;
+import com.example.ProjectsShowcase.models.ProjectFullInfo.Status;
 import com.example.ProjectsShowcase.repositories.UserRepository;
 import com.example.ProjectsShowcase.services.MyUserDetailsService;
 import com.example.ProjectsShowcase.services.Parser;
@@ -124,6 +125,30 @@ public class MainController {
 
     //
 
+    @PostMapping("/book/project/{id}")
+    public Map<String, String> bookProject(@PathVariable Long id) {
+        MyUser user = MyUserDetailsService.getCurrentUserInfo();
+        Team team = teamRepository.findByTeammates_id(user.getId());
+        ProjectFullInfo project = projectRepository.findById(id).get();
+        Map<String, String> response = new HashMap<>();
+        boolean isUserInTeam = team != null;
+        boolean responseStatus = isUserInTeam;
+
+        if (isUserInTeam) {
+            if (user.equals(team.getTeamlid())) {
+                team.setCurrentProject(projectRepository.findById(id).get());
+                teamRepository.save(team);
+
+                project.setStatus(Status.ON_WORK);
+                projectRepository.save(project);
+            }
+            else responseStatus = false;   
+        }
+        
+        response.put("Ответ", String.valueOf(responseStatus));
+        return response;
+    }
+
     @GetMapping("/user/info/{id}")
     public MyUser getUserInfo(@PathVariable Long id) {
         return userRepository.findById(id).get();
@@ -139,15 +164,18 @@ public class MainController {
         @RequestParam(required = false) List<Long> teammatesId) {
 
         MyUser teamlid = userRepository.findById(id).get();
-        Team team = new Team(null, name, teamlid, List.of(teamlid), null, 
+        Team team = new Team(null, name, teamlid, null, null, 
             new ArrayList<>(), new ArrayList<>());
+        List<MyUser> teammates = new ArrayList<>();
+        teammates.add(teamlid);
 
         if (teammatesId != null && !teammatesId.isEmpty()) {
             for (Long teammateId : teammatesId) {
-                team.addTeammate(userRepository.findById(teammateId).get());
+                teammates.add(userRepository.findById(teammateId).get());
             }
         }
 
+        team.setTeammates(teammates);
         teamRepository.save(team);
 
         return "saved";

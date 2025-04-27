@@ -33,14 +33,14 @@ async function fetchProjectInfo() {
         }
         else affiliation = false;
 
-        displayProjectInfo(projectInfo, userInfo, affiliation);
+        displayProjectInfo(projectInfo, userInfo, affiliation, projectId);
         
     } catch (error) {
         console.error('Ошибка при получении данных:', error);
     }
 }
 
-function displayProjectInfo(projectInfo, userInfo, affiliation) {
+function displayProjectInfo(projectInfo, userInfo, affiliation, projectId) {
     const colorMap = {
         'COMPLETED': 'gray',
         'ON_WORK': 'red',
@@ -70,12 +70,41 @@ function displayProjectInfo(projectInfo, userInfo, affiliation) {
     document.getElementById('customer').textContent = projectInfo.customer.name;
 
     const buttonsSection = document.getElementById('buttons_section');
-    console.log(status)
+    buttonsSection.innerHTML = '';
+
     if (userInfo != null) {
         if (userInfo.role == 'ROLE_STUDENT' && 
             (status != 'в работе' && status != 'сдано' && status != 'на верификации')) {
-
-            buttonsSection.innerHTML = `<button class="yellow-button button-right">Забронировать</button>`;
+            
+            const book = document.createElement('button');
+            book.className = 'yellow-button button-right';
+            book.textContent = 'Забронировать';
+            book.id = 'book-button';
+            book.addEventListener('click', () => {
+                fetch(`/book/project/${projectId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error('Ошибка сети');
+                    return response.json();
+                })
+                .then(data => {
+                    const response = data["Ответ"] === 'true';
+                    
+                    if (response)
+                        alert("Забронировано");
+                    else
+                        alert("Вы не в команде!")
+                    fetchProjectInfo();
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                });
+            });
+            buttonsSection.appendChild(book);
         }
         else {
             if (affiliation) {
@@ -85,5 +114,7 @@ function displayProjectInfo(projectInfo, userInfo, affiliation) {
     }
     else buttonsSection.innerHTML = `<button class="yellow-button button-right">Забронировать</button>`;
 }
+
+
 
 document.addEventListener('DOMContentLoaded', fetchProjectInfo);
