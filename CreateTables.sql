@@ -64,5 +64,5 @@ CREATE TABLE showcase.team_teammates (
   PRIMARY KEY (`team_id`,`user_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `team_teammates_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`),
-  CONSTRAINT `team_teammates_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `teammates_id` (`id`)
+  CONSTRAINT `team_teammates_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `my_user` (`id`)
 );

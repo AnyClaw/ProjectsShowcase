@@ -23,7 +23,7 @@ function submitRequest() {
     .then(data => {
         console.log('Успех:', data);
 
-        const toMainPage = confirm('Заявка отправлена! Перейти на главную страницу?');
+        const toMainPage = alert('Заявка отправлена! Перейти на главную страницу?');
         window.location.href = '/';
     })
     .catch(error => {

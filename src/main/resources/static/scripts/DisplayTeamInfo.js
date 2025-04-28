@@ -52,13 +52,13 @@ function displayTeamProjects(teamInfo) {
     page.innerHTML = '';
 
     var allProjects = [].concat(teamInfo.currentProject, teamInfo.refusedProjects, teamInfo.completedProjects);
-    console.log(teamInfo);
+    console.log(allProjects);
 
     const selectedStatuses = Array.from(document.querySelectorAll('input[name="status"]:checked')).map(el => el.value);
     const searchQuery = document.getElementById('searchInput').value.toLowerCase();
 
     const filteredProjects = allProjects.filter(project => 
-        selectedStatuses.includes(project.status) &&
+        project != null && selectedStatuses.includes(project.status) &&    
         project.name.toLowerCase().includes(searchQuery)
     );
 

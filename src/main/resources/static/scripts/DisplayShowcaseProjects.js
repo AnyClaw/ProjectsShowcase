@@ -99,4 +99,8 @@ document.addEventListener('click', (event) => {
     }
 });
 
+document.getElementById('request-button').addEventListener('click', () => {
+    window.location.href = 'request';
+});
+
 document.addEventListener('DOMContentLoaded', fetchProjects);

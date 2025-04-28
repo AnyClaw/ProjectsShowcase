@@ -123,31 +123,42 @@ public class MainController {
         return projectRepository.findByCustomerId(MyUserDetailsService.getCurrentUserInfo().getId());
     }
 
-    //
-
     @PostMapping("/book/project/{id}")
     public Map<String, String> bookProject(@PathVariable Long id) {
         MyUser user = MyUserDetailsService.getCurrentUserInfo();
         Team team = teamRepository.findByTeammates_id(user.getId());
         ProjectFullInfo project = projectRepository.findById(id).get();
         Map<String, String> response = new HashMap<>();
-        boolean isUserInTeam = team != null;
-        boolean responseStatus = isUserInTeam;
+        String responseStatus = "Забронированно!";
 
-        if (isUserInTeam) {
-            if (user.equals(team.getTeamlid())) {
+        if (team != null) {
+            if (user.equals(team.getTeamlid()) && team.getCurrentProject() == null) {
                 team.setCurrentProject(projectRepository.findById(id).get());
                 teamRepository.save(team);
 
                 project.setStatus(Status.ON_WORK);
                 projectRepository.save(project);
             }
-            else responseStatus = false;   
+            else if (team.getCurrentProject() != null)
+                responseStatus = "Ошибка! У вас уже есть забронированный проект!";
+            else responseStatus = "Ошибка! Вы не являетесь лидером команды!";
         }
+        else responseStatus = "Ошибка! Вы не состоите в команде!";
         
-        response.put("Ответ", String.valueOf(responseStatus));
+        response.put("Ответ", responseStatus);
         return response;
     }
+
+    @PostMapping("/team/finish")
+    public String finishProject() {
+        MyUser user = MyUserDetailsService.getCurrentUserInfo();
+        Team team = teamRepository.findByTeammates_id(user.getId());
+        team.finishProject();
+        teamRepository.save(team);
+        return "finished";
+    }
+
+    //
 
     @GetMapping("/user/info/{id}")
     public MyUser getUserInfo(@PathVariable Long id) {
@@ -197,14 +208,6 @@ public class MainController {
         team.setCurrentProject(project);
         teamRepository.save(team);
         return "saved";
-    }
-
-    @PostMapping("/team/finish/{teamId}")
-    public String finishProject(@PathVariable Long teamId) {
-        Team team = teamRepository.findById(teamId).get();
-        team.finishProject();
-        teamRepository.save(team);
-        return "finished";
     }
 
     @PostMapping("/add/user")
