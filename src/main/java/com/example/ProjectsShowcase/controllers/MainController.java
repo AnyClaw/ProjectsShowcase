@@ -110,9 +110,9 @@ public class MainController {
         }
     }
 
-    @GetMapping("/api/affiliation/{userId}/{projectId}")
-    public boolean projectAffiliation(@PathVariable Long userId, @PathVariable Long projectId) {
-        MyUser user = userRepository.findById(userId).get();
+    @GetMapping("/api/affiliation/{projectId}")
+    public boolean projectAffiliation(@PathVariable Long projectId) {
+        MyUser user = MyUserDetailsService.getCurrentUserInfo();
         ProjectFullInfo project = projectRepository.findById(projectId).get();
 
         return user.getId() == project.getCustomer().getId();

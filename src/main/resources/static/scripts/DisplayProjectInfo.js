@@ -24,7 +24,7 @@ async function fetchProjectInfo() {
 
         var affiliation, team;
         if (userInfo != null) {
-            const response2 = await fetch(`/api/affiliation/${userInfo.id}/${projectId}`);
+            const response2 = await fetch(`/api/affiliation/${projectId}`);
             if (!response2.ok) {
                 throw new Error('Сетевая ошибка');
             }
@@ -150,7 +150,5 @@ function displayProjectInfo(projectInfo, userInfo, affiliation, projectId, team)
         buttonsSection.appendChild(book);
     }
 }
-
-
 
 document.addEventListener('DOMContentLoaded', fetchProjectInfo);
