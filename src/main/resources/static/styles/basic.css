@@ -27,7 +27,7 @@ header {
     border: none;
     margin: 0 auto;
     display: block;
-    background-color: rgb(255, 238, 0);
+    background-color: rgb(251 198 0);
     border-radius: 5px;
     transition: 0.3s all;
 }

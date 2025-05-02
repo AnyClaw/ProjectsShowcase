@@ -40,7 +40,9 @@ document.getElementById('team').onclick = function() {
     if (document.getElementById('team').textContent != 'Создать команду') {
         window.location.href = '/team';
     }
-    else alert('Не в команде');
+    else {
+        window.location.href = '/team/create'
+    }
 }
 
 document.addEventListener('DOMContentLoaded', fetchRoleInfo);

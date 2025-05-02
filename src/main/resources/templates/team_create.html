@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Создать команду</title>
+
+    <link rel="stylesheet" href="..\styles\basic.css">
+    <link rel="stylesheet" href="..\styles\profile_popup.css">
+    <link rel="stylesheet" href="..\styles\request_form.css">
+</head>
+<body>
+    <header class="center-y">
+        <img id="showcase-button" src="..\images\Miit_Icons.png" style="margin: 5px 0 5px 10px; cursor: pointer;">
+        <img id="profile-button" src="..\images\Profile_Icon.png">
+    </header>
+
+    <div class="center-x">
+        <h1>Команда</h1>
+    </div>
+
+    <form class="form" id="team-form">
+        <div class="field">
+            Название команды<br>
+            <textarea id="name" type="text" class="input medium"></textarea>
+        </div>
+
+        <div style="width: 90%; margin-right: 5%; margin-bottom: 15px;">
+            Участники<br>
+            <textarea id="teammate0" type="text" class="input medium"></textarea>
+        </div>
+        <img src="..\images\Add_Icon.png" class="add-button" id="add" onclick="addTeammate()">
+
+        
+    </form>
+
+    <div class="center-x" style="margin-top: 10px;">
+        <button type="button" onclick="createTeam()" class="yellow-button"><h1>Создать команду</h1></button>
+    </div>
+
+    <div id="profilePopup" class="popup">
+        <div id="profilePopupButtons"></div>
+    </div>
+
+    <div id="profilePopup" class="popup">
+        <div id="profilePopupButtons"></div>
+    </div>
+
+    <script src="..\scripts\DisplayProfileSection.js"></script>
+    <script src="..\scripts\SendProjectRequest.js"></script>
+</body>
+</html>

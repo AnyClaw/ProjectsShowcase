@@ -30,10 +30,11 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable).authorizeRequests(auth -> auth
             .requestMatchers("/").permitAll()
-            .requestMatchers("/profile", "/team", "/request").authenticated())
+            .requestMatchers("/profile", "/team/**", "/request").authenticated())
             .formLogin(form -> form
             .defaultSuccessUrl("/", true))
-            .logout(logout -> logout.logoutUrl("/logout")
+            .logout(logout -> logout
+            .logoutUrl("/logout")
             .logoutSuccessUrl("/")
             .deleteCookies("JSESSIONID"))
             .build();

@@ -26,7 +26,7 @@ async function fetchUser () {
             const logoutButton = document.createElement('button');
             logoutButton.textContent = 'Выйти';
             logoutButton.onclick = () => {
-                alert('Выход из системы');
+                window.location.href = '/logout';
             };
 
             profileButtonsContainer.appendChild(username);

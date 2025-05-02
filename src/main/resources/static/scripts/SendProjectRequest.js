@@ -1,3 +1,5 @@
+let teammatesCounter = 0;
+
 function submitRequest() {
     const data = {
         name: document.getElementById('name').value,
@@ -23,10 +25,20 @@ function submitRequest() {
     .then(data => {
         console.log('Успех:', data);
 
-        const toMainPage = alert('Заявка отправлена! Перейти на главную страницу?');
+        alert('Заявка отправлена! Перейти на главную страницу?');
         window.location.href = '/';
     })
     .catch(error => {
         console.error('Ошибка:', error);
     });
 }
+
+function addTeammate() {
+    document.getElementById(`add`).remove();
+    document.getElementById('team-form').innerHTML += `
+        <div style="width: 90%; margin-right: 5%; ">
+            <textarea id="teammate${++teammatesCounter}" type="text" class="input medium" style="margin-bottom: 15px;"></textarea>
+        </div>
+        <img src="..\\images\\Add_Icon.png" class="add-button" id="add" onclick="addTeammate()" style="margin-bottom: 15px;">
+    `;
+};
