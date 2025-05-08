@@ -31,8 +31,8 @@ function displayTeamInfo(teamInfo) {
     `
     for (var i = 0; i < teamInfo.teammates.length; i++) {
         if (teamInfo.teammates[i].id != teamlid.id) {
-            var post = teamInfo.teammates[i].name + ' ' + 
-                teamInfo.teammates[i].surname + ' ' + teamInfo.teammates[i].patronymic;
+            var post = teamInfo.teammates[i].surname + ' ' + 
+                teamInfo.teammates[i].name + ' ' + teamInfo.teammates[i].patronymic;
 
             teammatesList.innerHTML += `
                 <div style="padding: 20px; cursor: pointer; font-size: 17px;">${post}</div>

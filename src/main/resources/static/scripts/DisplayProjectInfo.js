@@ -83,6 +83,7 @@ function displayProjectInfo(projectInfo, userInfo, affiliation, projectId, team)
     const buttonsSection = document.getElementById('buttons_section');
     buttonsSection.innerHTML = '';
 
+    console.log(userInfo);
     if (userInfo != null) {
         if (userInfo.role == 'ROLE_STUDENT' && status == 'свободно') {
             

@@ -35,4 +35,8 @@ public class MyUser {
         String[] rolesArray = roles.split(", ");
         return rolesArray.length == 2 ? rolesArray[1] : roles;
     }
+
+    public void setDefaultPost() {
+        post = String.format("%s %s %s", name, surname, patronymic);
+    }
 }

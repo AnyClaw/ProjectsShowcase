@@ -9,6 +9,7 @@ async function fetchRoleInfo() {
             displayTeamName(roleInfo);
         }
 
+        console.log(roleInfo)
         document.getElementById('role').textContent = roleInfo.role;
 
     } catch (error) {

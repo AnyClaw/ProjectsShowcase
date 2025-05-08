@@ -4,18 +4,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProjectsShowcase.models.MyUser;
 import com.example.ProjectsShowcase.models.ProjectFullInfo;
 import com.example.ProjectsShowcase.models.Team;
+import com.example.ProjectsShowcase.models.TeamForm;
 import com.example.ProjectsShowcase.models.ProjectFullInfo.Status;
 import com.example.ProjectsShowcase.repositories.UserRepository;
 import com.example.ProjectsShowcase.services.MyUserDetailsService;
@@ -68,7 +69,7 @@ public class MainController {
         MyUser user = MyUserDetailsService.getCurrentUserInfo();
 
         switch (user.getRole()) {
-            case "ROLE_STUDENT" -> {
+            case "ROLE_STUDENT", "ROLE_ADMIN" -> {
                 Team team = teamRepository.findByTeammates_id(user.getId());
                 response.put("role", "Студент");
 
@@ -158,6 +159,44 @@ public class MainController {
         return "finished";
     }
 
+    @GetMapping("api/find/user/{post}")
+    public Map<String, String> findUser(@PathVariable String post) {
+        Map<String, String> response = new HashMap<>();
+        Optional<MyUser> user = userRepository.findByPost(post);
+
+        if (!user.isEmpty() && !user.get().getId().equals(MyUserDetailsService.getCurrentUserInfo().getId())) {
+            response.put("isExist", "true");
+            response.put("id", String.valueOf(user.get().getId()));
+        }
+        else response.put("isExist", "false");
+
+        return response;
+    }
+
+    @PostMapping("/add/user")
+    public String addUser(@RequestBody MyUser user) {
+        user.setPassword(encoder.encode(user.getPassword()));
+        user.setDefaultPost();
+        userRepository.save(user);
+        return "saved";
+    }
+
+    @PostMapping("api/team/create")
+    public String createTeam(@RequestBody TeamForm teamfForm) {
+        MyUser teamlid = userRepository.findById(MyUserDetailsService.getCurrentUserInfo().getId()).get();
+        Team team = new Team(null, teamfForm.getName(), teamlid, new ArrayList<>(), 
+            null, new ArrayList<>(), new ArrayList<>());
+
+        team.addTeammate(teamlid);
+        for (long id: teamfForm.getIds()) {
+            team.addTeammate(userRepository.findById(id).get());
+        }
+
+        teamRepository.save(team);
+
+        return "saved";
+    }
+
     //
 
     @GetMapping("/user/info/{id}")
@@ -168,28 +207,6 @@ public class MainController {
     @GetMapping("/get/team/{userId}")
     public Team getTeam(@PathVariable Long userId) {
         return teamRepository.findByTeammates_id(userId);
-    }
-
-    @PostMapping("/add/team/{id}/{name}")
-    public String createTeam(@PathVariable Long id, @PathVariable String name, 
-        @RequestParam(required = false) List<Long> teammatesId) {
-
-        MyUser teamlid = userRepository.findById(id).get();
-        Team team = new Team(null, name, teamlid, null, null, 
-            new ArrayList<>(), new ArrayList<>());
-        List<MyUser> teammates = new ArrayList<>();
-        teammates.add(teamlid);
-
-        if (teammatesId != null && !teammatesId.isEmpty()) {
-            for (Long teammateId : teammatesId) {
-                teammates.add(userRepository.findById(teammateId).get());
-            }
-        }
-
-        team.setTeammates(teammates);
-        teamRepository.save(team);
-
-        return "saved";
     }
 
     @PostMapping("/add/teammate/{teamlidId}/{teammateId}")
@@ -207,13 +224,6 @@ public class MainController {
         ProjectFullInfo project = projectRepository.findById(projectId).get();
         team.setCurrentProject(project);
         teamRepository.save(team);
-        return "saved";
-    }
-
-    @PostMapping("/add/user")
-    public String addUser(@RequestBody MyUser user) {
-        user.setPassword(encoder.encode(user.getPassword()));
-        userRepository.save(user);
         return "saved";
     }
 

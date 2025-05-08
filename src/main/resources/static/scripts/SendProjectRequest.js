@@ -1,4 +1,6 @@
 let teammatesCounter = 0;
+let isUsersAvaliable = false;
+let teammatesId = [];
 
 function submitRequest() {
     const data = {
@@ -34,11 +36,77 @@ function submitRequest() {
 }
 
 function addTeammate() {
-    document.getElementById(`add`).remove();
-    document.getElementById('team-form').innerHTML += `
-        <div style="width: 90%; margin-right: 5%; ">
-            <textarea id="teammate${++teammatesCounter}" type="text" class="input medium" style="margin-bottom: 15px;"></textarea>
-        </div>
-        <img src="..\\images\\Add_Icon.png" class="add-button" id="add" onclick="addTeammate()" style="margin-bottom: 15px;">
-    `;
-};
+    const post = document.getElementById(`teammate${teammatesCounter}`).value;
+    
+    if (post != '') {
+        fetch(`../api/find/user/${post}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Ошибка сети');
+            return response.json();
+        })
+        .then(data => {
+            console.log(data.id)
+            const errorDiv = document.getElementById(`error${teammatesCounter}`);
+            if (data.isExist === 'true' && !teammatesId.includes(data.id)) {
+                errorDiv.textContent = '';
+                isUsersAvaliable = true;
+                teammatesId.push(data.id);
+
+                const teamForm = document.getElementById('team-form');
+        
+                teamForm.insertAdjacentHTML('beforeend', `
+                    <div style="width: 90%; margin-right: 5%;">
+                        <textarea id="teammate${teammatesCounter + 1}" class="input medium" style="margin-bottom: 15px;"></textarea>
+                    </div>
+                `);
+
+                const addButton = document.getElementById('add');
+                teamForm.appendChild(addButton);
+
+                teamForm.insertAdjacentHTML('beforeend', `
+                    <div id="error${teammatesCounter + 1}" style="width: 100%;"></div>
+                `)
+
+                teammatesCounter++;
+            }
+            else {
+                errorDiv.style.color = 'red';
+                errorDiv.textContent = 'Пользователь не найден';
+                isUsersAvaliable = false;
+            }
+        })
+    }
+}
+
+function createTeam() {
+    if (document.getElementById('name').value != '') {
+        const data = {
+            name: document.getElementById('name').value,
+            ids: teammatesId
+        }
+        const jsonData = JSON.stringify(data);
+
+        fetch('/api/team/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: jsonData
+        })
+        .then(data => {
+            console.log('Успех:', data);
+    
+            alert('Команда создана! Перейти на главную страницу?');
+            window.location.href = '/';
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+    }
+    else alert('Введите название команды!')
+}

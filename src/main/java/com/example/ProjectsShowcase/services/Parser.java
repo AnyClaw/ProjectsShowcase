@@ -67,8 +67,8 @@ public class Parser {
                 project.get(0).equals("214") || project.get(0).equals("215"))) {
 
                 MyUser customer = new MyUser(null, project.get(2), "null", "null",
-                "null", "null" + i++, password, "ROLE_USER, ROLE_CUSTOMER", "null");
-                if (!userRepository.existsByName(customer.getName())) 
+                "null", "null" + i++, password, "ROLE_USER, ROLE_CUSTOMER", project.get(2));
+                if (!userRepository.existsByPost(customer.getName())) 
                     userRepository.save(customer);
 
                 ProjectFullInfo projectFullInfo = new ProjectFullInfo(
