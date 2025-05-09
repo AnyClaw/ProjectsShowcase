@@ -44,14 +44,26 @@ async function fetchProjectInfo() {
         }
         else affiliation = false;
 
-        displayProjectInfo(projectInfo, userInfo, affiliation, projectId, team);
+        const response4 = await fetch(`../../api/team/project/${projectId}`);
+        if (!response.ok) {
+            throw new Error('Сетевая ошибка');
+        }
+        
+        var teamInfo;
+        try {
+            teamInfo = await response4.json();
+        } catch {
+            
+        }
+
+        displayProjectInfo(projectInfo, userInfo, affiliation, projectId, team, teamInfo);
         
     } catch (error) {
         console.error('Ошибка при получении данных:', error);
     }
 }
 
-function displayProjectInfo(projectInfo, userInfo, affiliation, projectId, team) {
+function displayProjectInfo(projectInfo, userInfo, affiliation, projectId, team, teamInfo) {
     const colorMap = {
         'COMPLETED': 'gray',
         'ON_WORK': 'red',
@@ -80,10 +92,15 @@ function displayProjectInfo(projectInfo, userInfo, affiliation, projectId, team)
     document.getElementById('decisions').textContent = projectInfo.decisions;
     document.getElementById('customer').textContent = projectInfo.customer.name;
 
+    if (status == 'в работе') {
+        document.getElementById('team-add').style.display = 'inline';
+        document.getElementById('team-name').style.display = 'inline';
+        document.getElementById('team-name').textContent = teamInfo.name;
+    }
+
     const buttonsSection = document.getElementById('buttons_section');
     buttonsSection.innerHTML = '';
 
-    console.log(userInfo);
     if (userInfo != null) {
         if (userInfo.role == 'ROLE_STUDENT' && status == 'свободно') {
             

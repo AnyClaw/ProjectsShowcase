@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+
+    <link rel="stylesheet" href="..\styles\basic.css">
+    <link rel="stylesheet" href="..\styles\profile_popup.css">
+    <link rel="stylesheet" href="..\styles\request_form.css">
+    <link rel="stylesheet" href="..\styles\login_form.css">
+
+    <style>
+
+    </style>
+</head>
+<body>
+    <header class="center-y">
+        <img id="showcase-button" src="..\images\Miit_Icons.png" style="margin: 5px 0 5px 10px; cursor: pointer;">
+        <img id="profile-button" src="..\images\Profile_Icon.png">
+    </header>
+
+
+    <form method="post" th:action="@{/login}" class="form" id="loginForm" >
+        <div class="center-x">
+            <h1>Вход</h1>
+        </div>
+
+        <div th:if="${param.error}" style="margin-bottom: 10px; color: red;">
+            Неверная электронная почта или пароль
+        </div>
+
+        <div class="field">
+            Электронная почта<br>
+            <input id="mail" name="mail" type="text" class="input medium"></input>
+        </div>
+        
+        <div class="field">
+            Пароль<br>
+            <input id="password" name="password" type="password" class="input medium"></input>
+        </div>
+
+        <button type="submit" value="Login" class="yellow-button" style="width: 100%;"> Войти </button>
+
+        <p class="vhod">* Вход осуществляется через аккаунт личного кабинета РУТ (МИИТ)</p>
+    </form>
+
+    <div id="profilePopup" class="popup">
+        <div id="profilePopupButtons"></div>
+    </div>
+
+    <script src="..\scripts\DisplayProfileSection.js"></script>
+</body>
+</html>

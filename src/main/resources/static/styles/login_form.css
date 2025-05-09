@@ -1,0 +1,13 @@
+.vhod{
+    color: grey;
+    font-size: medium;
+}
+
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    margin: 0 auto;
+    padding: 5% 10%;
+    width: 25%;
+}

@@ -6,4 +6,5 @@ import com.example.ProjectsShowcase.models.Team;
 
 public interface TeamRepository extends CrudRepository<Team, Long> {
    Team findByTeammates_id(Long userId);
+   Team findTeamByCurrentProjectId(Long currentProjectId);
 }

@@ -32,7 +32,10 @@ public class SecurityConfig {
             .requestMatchers("/").permitAll()
             .requestMatchers("/profile", "/team/**", "/request").authenticated())
             .formLogin(form -> form
-            .defaultSuccessUrl("/", true))
+            .loginPage("/login")
+            .defaultSuccessUrl("/", true)
+            .usernameParameter("mail")
+            .passwordParameter("password"))
             .logout(logout -> logout
             .logoutUrl("/logout")
             .logoutSuccessUrl("/")

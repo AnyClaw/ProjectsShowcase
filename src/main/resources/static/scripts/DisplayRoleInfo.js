@@ -20,8 +20,19 @@ async function fetchRoleInfo() {
 function displayTeamName(roleInfo) {
     document.getElementById('team_section').style = 'display: grid';
 
-    if (roleInfo.teamName != 'Вы пока не состоите в команде')
-        document.getElementById('team').textContent = roleInfo.teamName;
+    if (roleInfo.teamName != 'Вы пока не состоите в команде') {
+        const teamInfoButton = document.createElement('button');
+        teamInfoButton.textContent = roleInfo.teamName;
+        Object.assign(teamInfoButton.style, {
+            backgroundColor: 'rgb(223, 223, 223)',
+            padding: '10px 20px',
+            fontSize: '25px',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer'
+        });
+        document.getElementById('team').appendChild(teamInfoButton);
+    }
     else {
         const newTeamButton = document.createElement('button');
         newTeamButton.textContent = 'Создать команду';

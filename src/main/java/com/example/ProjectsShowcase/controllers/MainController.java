@@ -196,6 +196,11 @@ public class MainController {
 
         return "saved";
     }
+    
+    @GetMapping("api/team/project/{id}")
+    public Team getTeamByProject(@PathVariable Long id) {
+        return teamRepository.findTeamByCurrentProjectId(id);
+    }
 
     //
 

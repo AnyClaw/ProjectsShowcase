@@ -81,7 +81,7 @@ public class Parser {
                     project.get(5),
                     project.get(6),
                     project.get(7),
-                    userRepository.findByName(customer.getName()).get()
+                    userRepository.findByMail(customer.getMail()).get()
                 );
                 projectRepository.save(projectFullInfo);
             }
