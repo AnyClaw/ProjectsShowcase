@@ -4,7 +4,7 @@ async function fetchProjectInfo() {
         const pathSegments = url.pathname.split('/');
         const projectId = pathSegments[pathSegments.length - 1];
 
-        const response = await fetch(`/api/project/info/${projectId}`);
+        const response = await fetch(`/api/projects/info/${projectId}`);
         if (!response.ok) {
             throw new Error('Сетевая ошибка');
         }
@@ -24,7 +24,7 @@ async function fetchProjectInfo() {
 
         var affiliation, team;
         if (userInfo != null) {
-            const response2 = await fetch(`/api/affiliation/${projectId}`);
+            const response2 = await fetch(`/api/user/affiliation/${projectId}`);
             if (!response2.ok) {
                 throw new Error('Сетевая ошибка');
             }
@@ -109,7 +109,7 @@ function displayProjectInfo(projectInfo, userInfo, affiliation, projectId, team,
             book.textContent = 'Забронировать';
             book.id = 'book-button';
             book.addEventListener('click', () => {
-                fetch(`/book/project/${projectId}`, {
+                fetch(`../../api/projects/book/${projectId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -137,7 +137,7 @@ function displayProjectInfo(projectInfo, userInfo, affiliation, projectId, team,
                 book.textContent = 'Завершить';
                 book.id = 'book-button';
                 book.addEventListener('click', () => {
-                    fetch(`/team/finish`, {
+                    fetch(`../../api/team/finish`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

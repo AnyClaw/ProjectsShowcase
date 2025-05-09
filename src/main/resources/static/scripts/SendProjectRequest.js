@@ -17,7 +17,7 @@ function submitRequest() {
 
     const jsonData = JSON.stringify(data);
 
-    fetch('/api/project/request', {
+    fetch('/api/projects/request', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -39,7 +39,7 @@ function addTeammate() {
     const post = document.getElementById(`teammate${teammatesCounter}`).value;
     
     if (post != '') {
-        fetch(`../api/find/user/${post}`, {
+        fetch(`../api/user/find/${post}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

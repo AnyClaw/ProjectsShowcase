@@ -7,7 +7,7 @@ CREATE TABLE showcase.my_user (
   `mail` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `roles` varchar(255) DEFAULT NULL,
-  `post` varchar(45) DEFAULT NULL,
+  `post` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `mail` (`mail`)
 );
@@ -36,33 +36,32 @@ CREATE TABLE showcase.team (
   PRIMARY KEY (`id`),
   KEY `teamlid_id` (`teamlid_id`),
   KEY `current_project_id` (`current_project_id`),
-  CONSTRAINT `team_ibfk_1` FOREIGN KEY (`teamlid_id`) REFERENCES `my_user` (`id`),
-  CONSTRAINT `team_ibfk_2` FOREIGN KEY (`current_project_id`) REFERENCES `project_full_info` (`id`)
+  CONSTRAINT `team_ibfk_1` FOREIGN KEY (`teamlid_id`) REFERENCES `my_user` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `team_ibfk_2` FOREIGN KEY (`current_project_id`) REFERENCES `project_full_info` (`id`) ON DELETE SET NULL
 );
 
 CREATE TABLE showcase.team_completed_projects (
   `team_id` bigint NOT NULL,
   `completed_projects_id` bigint NOT NULL,
   PRIMARY KEY (`team_id`,`completed_projects_id`),
-  KEY `completed_projects_id` (`completed_projects_id`),
-  CONSTRAINT `team_completed_projects_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`),
-  CONSTRAINT `team_completed_projects_ibfk_2` FOREIGN KEY (`completed_projects_id`) REFERENCES `project_full_info` (`id`)
+  UNIQUE KEY `completed_projects_id` (`completed_projects_id`),
+  CONSTRAINT `team_completed_projects_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `team_completed_projects_ibfk_2` FOREIGN KEY (`completed_projects_id`) REFERENCES `project_full_info` (`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE showcase.team_refused_projects (
   `team_id` bigint NOT NULL,
   `refused_projects_id` bigint NOT NULL,
   PRIMARY KEY (`team_id`,`refused_projects_id`),
-  KEY `refused_projects_id` (`refused_projects_id`),
-  CONSTRAINT `team_refused_projects_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`),
-  CONSTRAINT `team_refused_projects_ibfk_2` FOREIGN KEY (`refused_projects_id`) REFERENCES `project_full_info` (`id`)
+  UNIQUE KEY `refused_projects_id` (`refused_projects_id`),
+  CONSTRAINT `team_refused_projects_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `team_refused_projects_ibfk_2` FOREIGN KEY (`refused_projects_id`) REFERENCES `project_full_info` (`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE showcase.team_teammates (
   `team_id` bigint NOT NULL,
-  `user_id` bigint NOT NULL,
-  PRIMARY KEY (`team_id`,`user_id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `team_teammates_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`),
-  CONSTRAINT `team_teammates_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `my_user` (`id`)
+  `teammates_id` bigint NOT NULL,
+  PRIMARY KEY (`team_id`,`teammates_id`),
+  CONSTRAINT `team_teammates_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `team_teammates_ibfk_2` FOREIGN KEY (`teammates_id`) REFERENCES `my_user` (`id`) ON DELETE CASCADE
 );

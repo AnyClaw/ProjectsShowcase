@@ -1,6 +1,6 @@
 async function fetchTeamProject() {
     try {
-        const response = await fetch('/api/customer/projects');
+        const response = await fetch('/api/user/customer/projects');
         if (!response.ok) {
             throw new Error('Сетевая ошибка');
         }

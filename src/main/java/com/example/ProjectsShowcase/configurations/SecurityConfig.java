@@ -29,7 +29,7 @@ public class SecurityConfig {
     @SuppressWarnings({ "deprecation" })
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable).authorizeRequests(auth -> auth
-            .requestMatchers("/").permitAll()
+            .requestMatchers("/", "/project/**").permitAll()
             .requestMatchers("/profile", "/team/**", "/request").authenticated())
             .formLogin(form -> form
             .loginPage("/login")

@@ -1,6 +1,6 @@
 async function fetchRoleInfo() {
     try {
-        const response = await fetch('/api/role/info');
+        const response = await fetch('/api/user/role');
         if (!response.ok) {
             throw new Error('Сетевая ошибка');
         }

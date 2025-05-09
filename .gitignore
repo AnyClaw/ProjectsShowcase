@@ -33,4 +33,8 @@ build/
 .vscode/
 
 ProjectPlans.txt
-# CreateTables.sql
+src/main/resources/application.yml
+CreateTables.sql
+src/main/resources/static/parser/
+src/main/java/com/example/ProjectsShowcase/controllers/AdminController.java
+src/main/java/com/example/ProjectsShowcase/services/Parser.java
