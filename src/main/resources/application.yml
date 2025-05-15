@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: ProjectsShowcase
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/showcase
+    username: root
+    password: 30052006_Egor
